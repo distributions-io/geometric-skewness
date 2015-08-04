@@ -175,7 +175,7 @@ bool = ( mat === out );
 
 ## Notes
 
-*	If an element is __not__ a positive number, the [expected value](https://en.wikipedia.org/wiki/Expected_value) is `NaN`.
+*	If an element is __not__ a number on the interval [0,1], the [expected value](https://en.wikipedia.org/wiki/Expected_value) is `NaN`.
 
 	``` javascript
 	var p, out;
@@ -183,7 +183,7 @@ bool = ( mat === out );
 	out = skewness( -1 );
 	// returns NaN
 
-	out = skewness( 0 );
+	out = skewness( 1.5 );
 	// returns NaN
 
 	out = skewness( null );
