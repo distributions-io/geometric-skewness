@@ -287,7 +287,7 @@ for ( i = 0; i < p.length; i++ ) {
 out = skewness( p );
 
 // Matrices...
-mat = matrix( p, [5,2], 'int32' );
+mat = matrix( p, [5,2], 'float64' );
 out = skewness( mat );
 
 // Matrices (custom output data type)...

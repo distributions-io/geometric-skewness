@@ -70,7 +70,7 @@ console.log( 'Typed arrays: %s\n', out );
 
 // ----
 // Matrices...
-mat = matrix( p, [5,2], 'int32' );
+mat = matrix( p, [5,2], 'float64' );
 out = skewness( mat );
 console.log( 'Matrix: %s\n', out.toString() );
 
