@@ -13,7 +13,7 @@ var p,
 // Plain arrays...
 p = new Array( 10 );
 for ( i = 0; i < p.length; i++ ) {
-	p[ i ] = i;
+	p[ i ] = i / 10;
 }
 out = skewness( p );
 console.log( 'Arrays: %s\n', out );
@@ -53,9 +53,9 @@ console.log( '\n' );
 
 // ----
 // Typed arrays...
-p = new Int32Array( 10 );
+p = new Float64Array( 10 );
 for ( i = 0; i < p.length; i++ ) {
-	p[ i ] = i;
+	p[ i ] = i / 10;
 }
 tmp = skewness( p );
 out = '';

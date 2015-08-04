@@ -2,16 +2,16 @@ Skewness
 ===
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][codecov-image]][codecov-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> [Geometric](https://en.wikipedia.org/wiki/Geometric_distribution) distribution [skewness](https://en.wikipedia.org/wiki/skewness).
+> [Geometric](https://en.wikipedia.org/wiki/Geometric_distribution) distribution [skewness](https://en.wikipedia.org/wiki/Skewness).
 
-The [skewness](https://en.wikipedia.org/wiki/skewness) for a [Geometric](https://en.wikipedia.org/wiki/Geometric_distribution) random variable is
+The [skewness](https://en.wikipedia.org/wiki/Skewness) for a [Geometric](https://en.wikipedia.org/wiki/Geometric_distribution) random variable is
 
-<div class="equation" align="center" data-raw-text="\operatorname{Var}\left[ X \right] = " data-equation="eq:skewness">
-	<img src="" alt="skewness for a Geometric distribution.">
+<div class="equation" align="center" data-raw-text="\operatorname{skew}\left[ X \right] = \frac{2-p}{\sqrt{1-p}}" data-equation="eq:skewness">
+	<img src="https://cdn.rawgit.com/distributions-io/geometric-skewness/5cc9e00e59665a01404d8a87aa5c2d750b04b408/docs/img/eqn.svg" alt="Skewness for a Geometric distribution.">
 	<br>
 </div>
 
-where `p` is the success probability.
+where `0 <= p <= 1` is the success probability.
 
 
 ## Installation
@@ -31,7 +31,7 @@ var skewness = require( 'distributions-geometric-skewness' );
 
 #### skewness( p[, opts] )
 
-Computes the [skewness](https://en.wikipedia.org/wiki/skewness) for a [Geometric](https://en.wikipedia.org/wiki/Geometric_distribution) distribution with parameter `p` . `p` may be either a [`number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), an [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or a [`matrix`](https://github.com/dstructs/matrix).
+Computes the [skewness](https://en.wikipedia.org/wiki/Skewness) for a [Geometric](https://en.wikipedia.org/wiki/Geometric_distribution) distribution with parameter `p` . `p` may be either a [`number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), an [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or a [`matrix`](https://github.com/dstructs/matrix).
 
 ``` javascript
 var matrix = require( 'dstructs-matrix' ),
@@ -41,26 +41,26 @@ var matrix = require( 'dstructs-matrix' ),
 	i;
 
 out = skewness( 0.2 );
-// returns 2.012461
+// returns ~2.012
 
 p = [ 0.2, 0.4, 0.6, 0.8 ];
 out = skewness( p );
-// returns [ 2.012461, 2.065591, 2.213594, 2.683282 ]
+// returns [ ~2.012, ~2.066, ~2.214, ~2.683 ]
 
 p = new Float32ArrayArray( p );
 out = skewness( p );
-// returns Float64Array( [2.012461,2.065591,2.213594,2.683282] )
+// returns Float64Array( [~2.012,~2.066,~2.214,~2.683 ] )
 
 p =  matrix( [ 0.2, 0.4, 0.6, 0.8 ], [2,2] );
 /*
-	[ 0.2, 0.4,
-	  0.6, 0.8 ]
+	[ 0.2  0.4,
+	  0.6  0.8 ]
 */
 
 out = skewness( p );
 /*
-	[ 2.012461, 2.065591,
-	  2.213594, 2.683282 ]
+	[ ~2.012 ~2.066
+	  ~2.214 ~2.683 ]
 */
 ```
 
@@ -89,7 +89,7 @@ function getValue( d, i ) {
 var out = skewness( p, {
 	'accessor': getValue
 });
-// returns [ 2.012461, 2.065591, 2.213594, 2.683282 ]
+// returns [ ~2.012, ~2.066, ~2.214, ~2.683 ]
 ```
 
 To [deepset](https://github.com/kgryte/utils-deep-set) an object `array`, provide a key path and, optionally, a key path separator.
@@ -105,10 +105,10 @@ var p = [
 var out = skewness( p, 'x|1', '|' );
 /*
 	[
-		{'x':[9,2.012461]},
-		{'x':[9,2.065591]},
-		{'x':[9,2.213594]},
-		{'x':[9,2.683282]},
+		{'x':[9,~2.012]},
+		{'x':[9,~2.066]},
+		{'x':[9,~2.214]},
+		{'x':[9,~2.683]},
 	]
 */
 
@@ -149,23 +149,23 @@ p = [ 0.2, 0.4, 0.6, 0.8 ];
 out = skewness( p, {
 	'copy': false
 });
-// returns [ 2.012461, 2.065591, 2.213594, 2.683282 ]
+// returns [ ~2.012, ~2.066, ~2.214, ~2.683 ]
 
 bool = ( data === out );
 // returns true
 
 mat = matrix( [ 0.2, 0.4, 0.6, 0.8 ], [2,2] );
 /*
-	[ 0.2, 0.4,
-	  0.6, 0.8 ]
+	[ 0.2 0.4,
+	  0.6 0.8 ]
 */
 
 out = skewness( mat, {
 	'copy': false
 });
 /*
-	[ 2.012461, 2.065591,
-	  2.213594, 2.683282 ]
+	[ ~2.012 ~2.066
+	  ~2.214 ~2.683 ]
 */
 
 bool = ( mat === out );
@@ -251,7 +251,7 @@ var p,
 // Plain arrays...
 p = new Array( 10 );
 for ( i = 0; i < p.length; i++ ) {
-	p[ i ] = i;
+	p[ i ] = i / 10;
 }
 out = skewness( p );
 
@@ -280,9 +280,9 @@ out = skewness( p, {
 });
 
 // Typed arrays...
-p = new Int32Array( 10 );
+p = new Float64Array( 10 );
 for ( i = 0; i < p.length; i++ ) {
-	p[ i ] = i;
+	p[ i ] = i / 10;
 }
 out = skewness( p );
 
