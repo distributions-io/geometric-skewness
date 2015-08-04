@@ -9,6 +9,9 @@ var // Expectation library:
 	// Matrix data structure:
 	matrix = require( 'dstructs-matrix' ),
 
+	// Deep close to:
+	deepCloseTo = require( './utils/deepcloseto.js' ),
+
 	// Validate a value is NaN:
 	isnan = require( 'validate.io-nan' ),
 
@@ -128,10 +131,10 @@ describe( 'compute-skewness', function tests() {
 	});
 
 	it( 'should compute the distribution skewness when provided a number', function test() {
-		assert.strictEqual( skewness( 0.2 ), 2.012461 );
-		assert.strictEqual( skewness( 0.4  ), 2.065591 );
-		assert.strictEqual( skewness( 0.6  ), 2.213594 );
-		assert.strictEqual( skewness( 0.8  ), 2.683282 );
+		assert.closeTo( skewness( 0.2 ), 2.012461, 1e-5 );
+		assert.closeTo( skewness( 0.4  ), 2.065591, 1e-5 );
+		assert.closeTo( skewness( 0.6  ), 2.213594, 1e-5 );
+		assert.closeTo( skewness( 0.8  ), 2.683282, 1e-5 );
 	});
 
 	it( 'should compute the distribution skewness when provided a plain array', function test() {
@@ -142,14 +145,15 @@ describe( 'compute-skewness', function tests() {
 
 		actual = skewness( p );
 		assert.notEqual( actual, p );
-		assert.deepEqual( actual, expected );
+		assert.isTrue( deepCloseTo( actual, expected, 1e-5 ) );
 
 		// Mutate...
 		actual = skewness( p, {
 			'copy': false
 		});
 		assert.strictEqual( actual, p );
-		assert.deepEqual( p, expected );
+		assert.isTrue( deepCloseTo( p, expected, 1e-5 ) );
+
 	});
 
 	it( 'should compute the distribution skewness when provided a typed array', function test() {
@@ -160,7 +164,7 @@ describe( 'compute-skewness', function tests() {
 
 		actual = skewness( p );
 		assert.notEqual( actual, p );
-		assert.deepEqual( actual, expected );
+		assert.isTrue( deepCloseTo( actual, expected, 1e-5 ) );
 
 		// Mutate:
 		actual = skewness( p, {
@@ -168,7 +172,8 @@ describe( 'compute-skewness', function tests() {
 		});
 		expected = new Float64Array( [ 2.012461,2.065591,2.213594,2.683282 ] );
 		assert.strictEqual( actual, p );
-		assert.deepEqual( p, expected );
+		assert.isTrue( deepCloseTo( p, expected, 1e-5 ) );
+
 	});
 
 	it( 'should compute the distribution skewness and return an array of a specific type', function test() {
@@ -200,7 +205,7 @@ describe( 'compute-skewness', function tests() {
 			'accessor': getValue
 		});
 		assert.notEqual( actual, p );
-		assert.deepEqual( actual, expected );
+		assert.isTrue( deepCloseTo( actual, expected, 1e-5 ) );
 
 		// Mutate:
 		actual = skewness( p, {
@@ -208,7 +213,7 @@ describe( 'compute-skewness', function tests() {
 			'copy': false
 		});
 		assert.strictEqual( actual, p );
-		assert.deepEqual( p, expected );
+		assert.isTrue( deepCloseTo( p, expected, 1e-5 ) );
 
 		function getValue( d ) {
 			return d.p;
@@ -236,7 +241,7 @@ describe( 'compute-skewness', function tests() {
 			'path': 'x.1'
 		});
 		assert.strictEqual( actual, data );
-		assert.deepEqual( actual, expected );
+		assert.isTrue( deepCloseTo( data, expected, 1e-5 ) );
 
 		// Specify a path with a custom separator...
 		data = [
@@ -251,7 +256,7 @@ describe( 'compute-skewness', function tests() {
 			'sep': '/'
 		});
 		assert.strictEqual( actual, data );
-		assert.deepEqual( actual, expected );
+		assert.isTrue( deepCloseTo( data, expected, 1e-5 ) );
 	});
 
 	it( 'should compute an element-wise distribution skewness when provided a matrix', function test() {
@@ -262,15 +267,15 @@ describe( 'compute-skewness', function tests() {
 			d3,
 			i;
 
-		d1 = new Int16Array( 25 );
+		d1 = new Float64Array( 25 );
 		d2 = new Float64Array( 25 );
-		d3 = new Int16Array( 25 );
+		d3 = new Float64Array( 25 );
 		for ( i = 0; i < d1.length; i++ ) {
-			d1[ i ] = i + 1;
-			d2[ i ] = SKEWNESS( i + 1 );
-			d3[ i ] = SKEWNESS( i + 1 );
+			d1[ i ] = i / 25;
+			d2[ i ] = SKEWNESS( i / 25 );
+			d3[ i ] = SKEWNESS( i / 25 );
 		}
-		mat = matrix( d1, [5,5], 'int16' );
+		mat = matrix( d1, [5,5], 'float64' );
 		out = skewness( mat );
 
 		assert.deepEqual( out.data, d2 );
@@ -290,13 +295,13 @@ describe( 'compute-skewness', function tests() {
 			d2,
 			i;
 
-		d1 = new Int16Array( 25 );
+		d1 = new Float64Array( 25 );
 		d2 = new Float32Array( 25 );
 		for ( i = 0; i < d1.length; i++ ) {
-			d1[ i ] = i + 1;
-			d2[ i ] = SKEWNESS( i + 1 );
+			d1[ i ] = i / 25;
+			d2[ i ] = SKEWNESS( i / 25 );
 		}
-		mat = matrix( d1, [5,5], 'int16' );
+		mat = matrix( d1, [5,5], 'float64' );
 		out = skewness( mat, {
 			'dtype': 'float32'
 		});

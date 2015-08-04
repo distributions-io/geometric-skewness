@@ -6,6 +6,9 @@
 var // Expectation library:
 	chai = require( 'chai' ),
 
+	// Deep close to:
+	deepCloseTo = require( './utils/deepcloseto.js' ),
+
 	// Module to be tested:
 	skewness = require( './../lib/array.js' );
 
@@ -33,7 +36,7 @@ describe( 'array skewness', function tests() {
 		actual = skewness( actual, p );
 		expected = [ 2.012461, 2.065591, 2.213594, 2.683282 ];
 
-		assert.deepEqual( actual, expected );
+		assert.isTrue( deepCloseTo( actual, expected, 1e-5 ) );
 	});
 
 	it( 'should return an empty array if provided an empty array', function test() {

@@ -6,6 +6,9 @@
 var // Expectation library:
 	chai = require( 'chai' ),
 
+	// Deep close to:
+	deepCloseTo = require( './utils/deepcloseto.js' ),
+
 	// Module to be tested:
 	skewness = require( './../lib/accessor.js' );
 
@@ -38,7 +41,7 @@ describe( 'accessor skewness', function tests() {
 		actual = skewness( actual, p, getValue );
 		expected = [ 2.012461, 2.065591, 2.213594, 2.683282 ];
 
-		assert.deepEqual( actual, expected );
+		assert.isTrue( deepCloseTo( actual, expected, 1e-5 ) );
 
 		function getValue( d ) {
 			return d.p;

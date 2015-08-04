@@ -28,14 +28,15 @@ describe( 'number skewness', function tests() {
 	});
 
 	it( 'should compute the distribution skewness', function test() {
-		assert.strictEqual( skewness( 0.2 ), 2.012461 );
-		assert.strictEqual( skewness( 0.4  ), 2.065591 );
-		assert.strictEqual( skewness( 0.6  ), 2.213594 );
-		assert.strictEqual( skewness( 0.8  ), 2.683282 );
+		assert.closeTo( skewness( 0.2 ), 2.012461, 1e-5 );
+		assert.closeTo( skewness( 0.4  ), 2.065591, 1e-5 );
+		assert.closeTo( skewness( 0.6  ), 2.213594, 1e-5 );
+		assert.closeTo( skewness( 0.8  ), 2.683282, 1e-5 );
 	});
 
 	it( 'should return `NaN` for invalid values of parameter p', function test() {
-		assert.isTrue( isnan( mean( -1 ) ) );
+		assert.isTrue( isnan( skewness( -1 ) ) );
+		assert.isTrue( isnan( skewness( 2 ) ) );
 	});
 
 });
