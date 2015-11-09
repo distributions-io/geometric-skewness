@@ -4,7 +4,7 @@ Skewness
 
 > [Geometric](https://en.wikipedia.org/wiki/Geometric_distribution) distribution [skewness](https://en.wikipedia.org/wiki/Skewness).
 
-The [skewness](https://en.wikipedia.org/wiki/Skewness) for a [Geometric](https://en.wikipedia.org/wiki/Geometric_distribution) random variable is
+The [skewness](https://en.wikipedia.org/wiki/Skewness) for a [geometric](https://en.wikipedia.org/wiki/Geometric_distribution) random variable is
 
 <div class="equation" align="center" data-raw-text="\operatorname{skew}\left[ X \right] = \frac{2-p}{\sqrt{1-p}}" data-equation="eq:skewness">
 	<img src="https://cdn.rawgit.com/distributions-io/geometric-skewness/5cc9e00e59665a01404d8a87aa5c2d750b04b408/docs/img/eqn.svg" alt="Skewness for a Geometric distribution.">
@@ -31,7 +31,7 @@ var skewness = require( 'distributions-geometric-skewness' );
 
 #### skewness( p[, opts] )
 
-Computes the [skewness](https://en.wikipedia.org/wiki/Skewness) for a [Geometric](https://en.wikipedia.org/wiki/Geometric_distribution) distribution with parameter `p` . `p` may be either a [`number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), an [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or a [`matrix`](https://github.com/dstructs/matrix).
+Computes the [skewness](https://en.wikipedia.org/wiki/Skewness) for a [geometric](https://en.wikipedia.org/wiki/Geometric_distribution) distribution with parameter `p` . `p` may be either a [`number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), an [`array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array), a [`typed array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), or a [`matrix`](https://github.com/dstructs/matrix).
 
 ``` javascript
 var matrix = require( 'dstructs-matrix' ),
